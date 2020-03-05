@@ -6,7 +6,6 @@ import Button from '@material-ui/core/Button';
 class TodoList extends Component{
 render(){
     return(
-
         <form onSubmit={this.props.addItem}>
             <TextField id="standard-basic" 
         ref={this.props.inputElement}
