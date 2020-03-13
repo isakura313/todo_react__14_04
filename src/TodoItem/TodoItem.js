@@ -5,18 +5,15 @@ const css = {
     margin: '30px'
 }
 
-const deal = {
-    backgroundImage: ""
-}
 
 class TodoItem extends Component{
     createTasks = item => {
-        return( <div style={css} key= {item.key} >
+        return( <div style={css}  key= {item.inner_key} >
         <Button>
             {item.text}
         </Button>
         <Button onClick={()=>
-            this.props.deleteItem(item.key)}
+            this.props.deleteItem(item.inner_key)}
             color="secondary"> Done </Button>
         </div>)
     }

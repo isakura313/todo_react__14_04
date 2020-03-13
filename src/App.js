@@ -5,6 +5,7 @@ import TodoList from './TodoList';
 import TodoItem from './TodoItem';
 
 
+
 class App extends Component{
   constructor(){
     super()
@@ -12,19 +13,17 @@ class App extends Component{
       error: null,
       isLoaded: false,
       items:[],
-      currentItem: {text:"asdasd", key:"firstItem"}
-      //localstorage
-      //api в котором сохранять
+      currentItem: {text:"первое дело", inner_key:"firstItem"}
       
     }
   }
   componentDidMount() {
-    fetch("http://192.168.64.3/api")
-    .then(res => res.text())
-      // .then(res => res)
+    fetch("http://localhost:5003/deals")
+      .then(res => res.json())
       .then(
         (result) => {
           this.setState({
+            //если и произошла загрузка, тогда мы активируем наш компонент
             isLoaded: true,
             items: result
           });
@@ -42,9 +41,11 @@ class App extends Component{
 
 
 
+
+
   handleInput = e =>{
     const itemText = e.target.value;
-    const currentItem = {text: itemText, key: Date.now()}
+    const currentItem = {text: itemText, inner_key: Date.now()}
     this.setState({
       currentItem,
     })
@@ -52,20 +53,22 @@ class App extends Component{
 
 
 
-  addItem = e =>{
+   addItem = e =>{
     e.preventDefault();
     const newItem = this.state.currentItem;
     if (newItem.text != ''){
       let items = [...this.state.items, newItem];
       this.setState({
         items: items,
-        currentItem: {text:"", key:""}
+        currentItem: {text:"", inner_key:""}
       })
-    }
-  }
-  deleteItem = key =>{
+}
+}
+
+
+  deleteItem = inner_key =>{
     const filterItems = this.state.items.filter(item =>{
-        return item.key !== key;
+        return item.inner_key !== inner_key;
     })
     this.setState({
       items:filterItems
@@ -73,7 +76,7 @@ class App extends Component{
   }
 
   render(){
-    const { error, isLoaded, items } = this.state;
+    const { error, isLoaded } = this.state;
     if (error) {
       return <div>Ошибка: {error.message}</div>;
     } else if (!isLoaded) {
@@ -94,7 +97,6 @@ class App extends Component{
     )
   }
 }
-
 
 }
 
