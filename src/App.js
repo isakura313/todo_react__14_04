@@ -15,7 +15,7 @@ class App extends Component{
   }
 
 
-  handleInput = e =>{
+  handleInput = e => {
     const itemText = e.target.value
     const currentItem = {text:itemText, key: Date.now() }
     this.setState({
@@ -51,13 +51,11 @@ deleteItem = key =>{
       <Watch />
         <h1> Приложение для своих дел</h1>
       <TodoList
-      
+
       addItem={this.addItem}
       inputElement={this.inputElement}
       handleInput={this.handleInput}
       currentItem={this.state.currentItem}
-
-      
       />
       <TodoItem  entries = {this.state.items} deleteItem={this.deleteItem} />
       </Container> 
